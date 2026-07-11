@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Record Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SR</span>
+      Student Record System
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="add-student.html">Add Student</a></li>
+      <li><a href="view-students.html">View Students</a></li>
+      <li><a href="search-student.html">Search</a></li>
+      <li><a href="update-student.html">Update</a></li>
+      <li><a href="delete-student.html">Delete</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">SCSVMV &middot; BCA Final Year Project &middot; Phase 2</span>
+    <h1>Manage student records without the paperwork.</h1>
+    <p style="max-width:620px; font-size:1.02rem;">
+      A simple, five-action console app — Add, View, Search, Update, Delete — now wearing a proper web front end.
+      This phase covers the HTML/CSS screens; Phase 3 wires them to the Java Servlet backend built on top of the
+      original ArrayList-based Student store.
+    </p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <h2>What you can do</h2>
+    <p>Every screen below maps directly to one method in the console app.</p>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <span class="feature-tag">01 &middot; Create</span>
+        <h3>Add Student</h3>
+        <p>Register a new student with ID, name, age, course and contact details.</p>
+        <a class="btn btn-primary" href="add-student.html">Add a student</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-tag">02 &middot; Read</span>
+        <h3>View Students</h3>
+        <p>Browse every record currently stored, in a sortable, responsive table.</p>
+        <a class="btn btn-primary" href="view-students.html">View all records</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-tag">03 &middot; Read</span>
+        <h3>Search Student</h3>
+        <p>Look up a single student instantly by ID or by name.</p>
+        <a class="btn btn-primary" href="search-student.html">Search records</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-tag">04 &middot; Update</span>
+        <h3>Update Student</h3>
+        <p>Find a record by ID and edit any of its details in place.</p>
+        <a class="btn btn-update" href="update-student.html">Update a record</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-tag">05 &middot; Delete</span>
+        <h3>Delete Student</h3>
+        <p>Find a record by ID and remove it, with a confirmation step.</p>
+        <a class="btn btn-delete" href="delete-student.html">Delete a record</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-tag">Stack</span>
+        <h3>Built with</h3>
+        <p>HTML, CSS for this phase. Java Servlets + the existing ArrayList model come next.</p>
+        <a class="btn btn-outline" href="view-students.html">See it in action</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <span>Student Record Management System</span>
+    <span>Phase 2 &middot; Frontend (HTML/CSS)</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Students · Student Record Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SR</span>
+      Student Record System
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="add-student.html">Add Student</a></li>
+      <li><a href="view-students.html" class="active">View Students</a></li>
+      <li><a href="search-student.html">Search</a></li>
+      <li><a href="update-student.html">Update</a></li>
+      <li><a href="delete-student.html">Delete</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Read</span>
+    <h1>All students</h1>
+    <p>This table currently reads from demo data in <code>js/students.js</code>. In Phase 3 it will call a <code>GET /students</code> Servlet that loops over the ArrayList and returns each record.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; margin-bottom:1rem;">
+      <span id="countLabel" style="color:var(--text-muted); font-size:0.9rem;"></span>
+      <a href="add-student.html" class="btn btn-primary btn-sm">+ Add Student</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>

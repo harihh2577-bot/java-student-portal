@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Student · Student Record Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SR</span>
+      Student Record System
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="add-student.html" class="active">Add Student</a></li>
+      <li><a href="view-students.html">View Students</a></li>
+      <li><a href="search-student.html">Search</a></li>
+      <li><a href="update-student.html">Update</a></li>
+      <li><a href="delete-student.html">Delete</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Create</span>
+    <h1>Add a new student</h1>
+    <p>Fill in the details below. In Phase 3 this form posts to an <code>AddStudentServlet</code>, which appends a new <code>Student</code> object to the in-memory ArrayList.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="card" style="max-width:760px;">
+      <h2>Student details</h2>
+
+      <div id="addAlert" class="alert"></div>
+
+      <form id="addStudentForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" name="studentId" placeholder="e.g. STU106" required>
+          </div>
+          <div class="field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="e.g. Karthik Selvam" required>
+          </div>
+          <div class="field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="15" max="80" placeholder="e.g. 21" required>
+          </div>
+          <div class="field">
+            <label for="course">Course</label>
+            <select id="course" name="course" required>
+              <option value="" disabled selected>Select a course</option>
+              <option value="BCA">BCA</option>
+              <option value="B.Sc CS">B.Sc Computer Science</option>
+              <option value="B.Com">B.Com</option>
+              <option value="B.E CSE">B.E Computer Science</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="student@example.com" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit number" required>
+          </div>
+          <div class="field full">
+            <label for="address">Address <span class="hint">(optional)</span></label>
+            <textarea id="address" name="address" rows="3" placeholder="Street, city, state"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Add Student</button>
+          <button type="reset" class="btn btn-outline">Clear Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <span>Student Record Management System</span>
+    <span>Phase 2 &middot; Frontend (HTML/CSS)</span>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById("addStudentForm");
+  const alertBox = document.getElementById("addAlert");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const id = document.getElementById("studentId").value.trim();
+    const name = document.getElementById("fullName").value.trim();
+
+    alertBox.textContent = "\u2713 " + name + " (" + id + ") added to the demo record set. Connect this form to your Servlet in Phase 3 to persist it.";
+    alertBox.className = "alert show alert-success";
+    form.reset();
+  });
+</script>
+
+</body>
+</html>

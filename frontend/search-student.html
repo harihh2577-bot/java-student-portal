@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Student · Student Record Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SR</span>
+      Student Record System
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="add-student.html">Add Student</a></li>
+      <li><a href="view-students.html">View Students</a></li>
+      <li><a href="search-student.html" class="active">Search</a></li>
+      <li><a href="update-student.html">Update</a></li>
+      <li><a href="delete-student.html">Delete</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Read &middot; single record</span>
+    <h1>Search for a student</h1>
+    <p>Search by exact Student ID or by (partial) name. This mirrors the <code>searchStudent()</code> method from the console app.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="card" style="max-width:760px;">
+
+      <div class="search-bar" style="margin-bottom:0.4rem;">
+        <input type="text" id="searchInput" placeholder="Enter Student ID (e.g. STU103) or a name">
+        <button type="button" id="searchByIdBtn" class="btn btn-primary">Search by ID</button>
+        <button type="button" id="searchByNameBtn" class="btn btn-outline">Search by Name</button>
+      </div>
+
+      <div id="searchAlert" class="alert"></div>
+
+      <div id="results"></div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <span>Student Record Management System</span>
+    <span>Phase 2 &middot; Frontend (HTML/CSS)</span>
+  </div>
+</footer>
+
+<script src="js/students.js"></script>
+<script>
+  const input = document.getElementById("searchInput");
+  const alertBox = document.getElementById("searchAlert");
+  const results = document.getElementById("results");
+
+  function renderRecord(s) {
+    return "<div class=\"record-preview\">" +
+      "<dl>" +
+        "<dt>Student ID</dt><dd>" + escapeHtml(s.id) + "</dd>" +
+        "<dt>Name</dt><dd>" + escapeHtml(s.name) + "</dd>" +
+        "<dt>Age</dt><dd>" + escapeHtml(s.age) + "</dd>" +
+        "<dt>Course</dt><dd>" + escapeHtml(s.course) + "</dd>" +
+        "<dt>Email</dt><dd>" + escapeHtml(s.email) + "</dd>" +
+        "<dt>Phone</dt><dd>" + escapeHtml(s.phone) + "</dd>" +
+      "</dl>" +
+      "<div class=\"form-actions\">" +
+        "<a class=\"btn btn-update btn-sm\" href=\"update-student.html?id=" + encodeURIComponent(s.id) + "\">Update this record</a>" +
+        "<a class=\"btn btn-delete btn-sm\" href=\"delete-student.html?id=" + encodeURIComponent(s.id) + "\">Delete this record</a>" +
+      "</div>" +
+    "</div>";
+  }
+
+  document.getElementById("searchByIdBtn").addEventListener("click", function () {
+    const query = input.value.trim();
+    if (!query) {
+      showAlert(alertBox, "Enter a Student ID to search.", "error");
+      results.innerHTML = "";
+      return;
+    }
+    const found = findStudentById(SEED_STUDENTS, query);
+    if (found) {
+      showAlert(alertBox, "1 record found for ID \"" + query + "\".", "success");
+      results.innerHTML = renderRecord(found);
+    } else {
+      showAlert(alertBox, "No student found with ID \"" + query + "\".", "error");
+      results.innerHTML = "";
+    }
+  });
+
+  document.getElementById("searchByNameBtn").addEventListener("click", function () {
+    const query = input.value.trim();
+    if (!query) {
+      showAlert(alertBox, "Enter a name to search.", "error");
+      results.innerHTML = "";
+      return;
+    }
+    const matches = findStudentsByName(SEED_STUDENTS, query);
+    if (matches.length > 0) {
+      showAlert(alertBox, matches.length + " record(s) found matching \"" + query + "\".", "success");
+      results.innerHTML = matches.map(renderRecord).join("");
+    } else {
+      showAlert(alertBox, "No students found matching \"" + query + "\".", "error");
+      results.innerHTML = "";
+    }
+  });
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") document.getElementById("searchByIdBtn").click();
+  });
+</script>
+
+</body>
+</html>

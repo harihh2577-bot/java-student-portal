@@ -15,14 +15,14 @@ public static void main(String[] args) {
             System.out.println("1. Add student");
             System.out.println("2. viewall students");
             System.out.println("3. Search Student");
-            System.out.println("4. Update Student");
-            System.out.println("5. exit");
+            System.out.println("4. Delete Student");
+            System.out.println("5. Update Student");
+            System.out.println("6. exit");
             System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(Sc.nextLine());
 
-
-            choice = Integer.parseInt(Sc.nextLine());
-
-            switch (choice) {
+                switch (choice) {
                 case 1:
                     manager.addStudent(Sc);
                     break;
@@ -35,9 +35,11 @@ public static void main(String[] args) {
                     manager.searchStudent(Sc);
                     break;
 
-                case 4:
-                    manager.updateStudent(Sc);
-                        break;
+                    case 4:
+        manager.deleteStudent(Sc);  // ← new
+        break;
+
+                
                 case 5:
                     System.out.println("Goodbye!");
                     running = false;
@@ -46,6 +48,9 @@ public static void main(String[] args) {
                 default:
                     System.out.println("Invalid choice. Try again.");
                     break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a number.\n");
             }
         }
         Sc.close();

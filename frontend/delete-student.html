@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Student · Student Record Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">SR</span>
+      Student Record System
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="add-student.html">Add Student</a></li>
+      <li><a href="view-students.html">View Students</a></li>
+      <li><a href="search-student.html">Search</a></li>
+      <li><a href="update-student.html">Update</a></li>
+      <li><a href="delete-student.html" class="active">Delete</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Delete</span>
+    <h1>Delete a student record</h1>
+    <p>Find the record by ID, confirm it's the right one, then remove it. Maps to <code>deleteStudent()</code> in the console app — always confirm before removing data.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="card" style="max-width:760px;">
+
+      <div class="search-bar" style="margin-bottom:0.4rem;">
+        <input type="text" id="lookupInput" placeholder="Enter Student ID (e.g. STU105)">
+        <button type="button" id="lookupBtn" class="btn btn-primary">Find Student</button>
+      </div>
+
+      <div id="lookupAlert" class="alert"></div>
+
+      <div id="previewWrap" style="display:none;">
+        <div id="preview"></div>
+        <div class="form-actions">
+          <button type="button" id="confirmDeleteBtn" class="btn btn-delete">Confirm Delete</button>
+          <button type="button" id="cancelBtn" class="btn btn-outline">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <span>Student Record Management System</span>
+    <span>Phase 2 &middot; Frontend (HTML/CSS)</span>
+  </div>
+</footer>
+
+<script src="js/students.js"></script>
+<script>
+  const lookupInput = document.getElementById("lookupInput");
+  const lookupAlert = document.getElementById("lookupAlert");
+  const previewWrap = document.getElementById("previewWrap");
+  const preview = document.getElementById("preview");
+  let currentStudent = null;
+
+  function renderPreview(s) {
+    return "<div class=\"record-preview\">" +
+      "<dl>" +
+        "<dt>Student ID</dt><dd>" + escapeHtml(s.id) + "</dd>" +
+        "<dt>Name</dt><dd>" + escapeHtml(s.name) + "</dd>" +
+        "<dt>Age</dt><dd>" + escapeHtml(s.age) + "</dd>" +
+        "<dt>Course</dt><dd>" + escapeHtml(s.course) + "</dd>" +
+        "<dt>Email</dt><dd>" + escapeHtml(s.email) + "</dd>" +
+        "<dt>Phone</dt><dd>" + escapeHtml(s.phone) + "</dd>" +
+      "</dl>" +
+    "</div>";
+  }
+
+  function doLookup(id) {
+    const found = findStudentById(SEED_STUDENTS, id);
+    if (found) {
+      currentStudent = found;
+      showAlert(lookupAlert, "Record found. Review the details below before deleting.", "info");
+      preview.innerHTML = renderPreview(found);
+      previewWrap.style.display = "block";
+    } else {
+      currentStudent = null;
+      showAlert(lookupAlert, "No student found with ID \"" + id + "\".", "error");
+      previewWrap.style.display = "none";
+    }
+  }
+
+  document.getElementById("lookupBtn").addEventListener("click", function () {
+    const id = lookupInput.value.trim();
+    if (!id) {
+      showAlert(lookupAlert, "Enter a Student ID first.", "error");
+      return;
+    }
+    doLookup(id);
+  });
+
+  lookupInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") document.getElementById("lookupBtn").click();
+  });
+
+  document.getElementById("cancelBtn").addEventListener("click", function () {
+    previewWrap.style.display = "none";
+    lookupAlert.className = "alert";
+    lookupInput.value = "";
+    currentStudent = null;
+  });
+
+  document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+    if (!currentStudent) return;
+    const idx = SEED_STUDENTS.findIndex(s => s.id === currentStudent.id);
+    if (idx !== -1) {
+      SEED_STUDENTS.splice(idx, 1);
+    }
+    showAlert(lookupAlert, "\u2713 " + currentStudent.id + " removed from the demo record set.", "success");
+    previewWrap.style.display = "none";
+    lookupInput.value = "";
+    currentStudent = null;
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("id")) {
+    lookupInput.value = params.get("id");
+    doLookup(params.get("id"));
+  }
+</script>
+
+</body>
+</html>

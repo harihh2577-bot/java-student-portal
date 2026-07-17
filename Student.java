@@ -13,7 +13,7 @@ public class Student {
         this.department = department;
     }
     public void display() {
-        System.out.print("id:"+id+", name:"+name+", age:"+age+", marks:"+marks+", department:"+department);
+        System.out.print("id:"+id+", name:"+name+", age:"+age+", marks:"+marks+", department:"+departmentXS);
     }
     
 }

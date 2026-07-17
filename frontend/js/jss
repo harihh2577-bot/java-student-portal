@@ -1,0 +1,32 @@
+const SEED_STUDENTS = [
+  { id: "STU101", name: "Arun Kumar",     age: 21, course: "BCA",  email: "arun.kumar@example.com",     phone: "9876500011" },
+  { id: "STU102", name: "Divya Sri",      age: 20, course: "B.Sc CS", email: "divya.sri@example.com",   phone: "9876500022" },
+  { id: "STU103", name: "Mohammed Faizal",age: 22, course: "BCA",  email: "faizal.m@example.com",       phone: "9876500033" },
+  { id: "STU104", name: "Priya Dharshini",age: 21, course: "B.Com", email: "priya.d@example.com",       phone: "9876500044" },
+  { id: "STU105", name: "Harish Raja",    age: 20, course: "BCA",  email: "harish.raja@example.com",    phone: "9876500055" }
+];
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function findStudentById(list, id) {
+  if (!id) return null;
+  const target = id.trim().toLowerCase();
+  return list.find(s => s.id.toLowerCase() === target) || null;
+}
+
+function findStudentsByName(list, name) {
+  const target = name.trim().toLowerCase();
+  if (!target) return [];
+  return list.filter(s => s.name.toLowerCase().includes(target));
+}
+
+function showAlert(el, message, type) {
+  el.textContent = message;
+  el.className = "alert show alert-" + type;
+}
